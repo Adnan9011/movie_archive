@@ -13,6 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "MovieArchive"
 include(":app")
 include(":core")

@@ -1,4 +1,4 @@
-package com.adnan.moviearchive.ui.theme
+package com.adnan.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -14,28 +14,15 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.adnan.ui.theme.Pink40
+import com.adnan.ui.theme.Pink80
+import com.adnan.ui.theme.Purple40
+import com.adnan.ui.theme.Purple80
+import com.adnan.ui.theme.PurpleGrey40
+import com.adnan.ui.theme.PurpleGrey80
+import com.adnan.ui.theme.Typography
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
+import com.adnan.ui.theme.*
 
 @Composable
 fun MovieArchiveTheme(
