@@ -1,4 +1,4 @@
-package com.moviearchive.domain
+package com.moviearchive.data
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

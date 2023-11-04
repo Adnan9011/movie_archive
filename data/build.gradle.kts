@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.adnan.data"
+    namespace = "com.moviearchive.data"
     compileSdk = 33
 
     defaultConfig {

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.adnan.ui"
+    namespace = "com.moviearchive.ui"
     compileSdk = 33
 
     defaultConfig {
@@ -30,6 +30,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 }
 

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.adnan.moviearchive"
+    namespace = "com.moviearchive.app"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.adnan.moviearchive"
+        applicationId = "com.moviearchive.app"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
