@@ -60,6 +60,7 @@ dependencies {
 
     projects.apply {
         implementation(ui)
+        implementation(data)
     }
 
     val composeBom = platform(libs.compose.bom)
