@@ -60,6 +60,7 @@ dependencies {
 
     projects.apply {
         implementation(ui)
+        implementation(data)
     }
 
     implementation(libs.core.ktx)
