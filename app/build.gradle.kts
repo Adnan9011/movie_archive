@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.moviearchive.app"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.moviearchive.app"
@@ -43,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.toString()
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packaging {
         resources {
@@ -61,6 +61,8 @@ dependencies {
     projects.apply {
         implementation(ui)
         implementation(data)
+        implementation(feature)
+        implementation(domain)
     }
 
     val composeBom = platform(libs.compose.bom)
@@ -73,6 +75,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.kotlinx.collections.immutable)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -83,4 +86,6 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.hilt.compose.navigation)
 }
