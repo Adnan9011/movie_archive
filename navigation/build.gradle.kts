@@ -2,12 +2,10 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
-    alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
 android {
-    namespace = "com.moviearchive.feature"
+    namespace = "com.moviearchive.navigation"
     compileSdk = 34
 
     defaultConfig {
@@ -44,32 +42,16 @@ android {
 dependencies {
 
     projects.apply {
-        implementation(domain)
-        implementation(core)
-        implementation(ui)
+        implementation(feature)
     }
-    val composeBom = platform(libs.compose.bom)
 
     implementation(libs.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(composeBom)
-    implementation(libs.compose.constraintlayout)
-    implementation(libs.compose.coil)
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
-    implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(composeBom)
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.compose.navigation)
+    implementation(libs.compose.navigation)
 }

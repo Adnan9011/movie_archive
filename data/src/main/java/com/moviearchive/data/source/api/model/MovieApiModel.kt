@@ -1,6 +1,6 @@
-package com.moviearchive.data.model
+package com.moviearchive.data.source.api.model
 
-data class MoveTable(
+internal data class MovieApiModel(
     val id: Int,
     val title: String,
     val imageUrl: String,

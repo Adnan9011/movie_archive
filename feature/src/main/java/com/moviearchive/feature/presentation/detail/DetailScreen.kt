@@ -36,13 +36,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
-import com.moviearchive.model.Movie
+import com.moviearchive.feature.model.MovieUiModel
 
 @Composable
 fun DetailScreen(
     modifier: Modifier,
     viewModel: DetailViewModel = hiltViewModel(),
-    movie: Movie
+    movie: MovieUiModel
 ) {
     Scaffold(
         topBar = {}
@@ -57,7 +57,7 @@ fun DetailScreen(
 @Composable
 fun DetailContent(
     modifier: Modifier,
-    movie: Movie
+    movie: MovieUiModel
 ) {
     val listState = rememberLazyListState()
 
@@ -65,24 +65,24 @@ fun DetailContent(
     ) {
         LazyColumn(state = listState) {
             item {
-                Header(name = movie.title, imageUrl = movie.posterLink)
+//                Header(name = movie.title, imageUrl = movie.posterLink)
             }
             item {
                 Spacer(modifier = Modifier.requiredHeight(8.dp))
             }
             item {
-                Text(
-                    text = movie.overview,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                        fontFamily = FontFamily.SansSerif,
-                        fontWeight = FontWeight.Medium,
-                        textAlign = TextAlign.Justify,
-                        lineHeight = 20.sp
-                    ),
-                    modifier = Modifier.padding(20.dp)
-                )
+//                Text(
+//                    text = movie.overview,
+//                    style = TextStyle(
+//                        fontSize = 16.sp,
+//                        color = Color.Black,
+//                        fontFamily = FontFamily.SansSerif,
+//                        fontWeight = FontWeight.Medium,
+//                        textAlign = TextAlign.Justify,
+//                        lineHeight = 20.sp
+//                    ),
+//                    modifier = Modifier.padding(20.dp)
+//                )
             }
         }
     }

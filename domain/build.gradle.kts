@@ -38,6 +38,10 @@ android {
 
 dependencies {
 
+    projects.apply {
+        implementation(data)
+        implementation(core)
+    }
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
