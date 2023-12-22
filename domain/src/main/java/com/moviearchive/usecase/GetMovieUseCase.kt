@@ -14,11 +14,10 @@ import javax.inject.Inject
 class GetMovieUseCase @Inject internal constructor(
     private val repository: MovieRepository
 ) : UseCaseNoInput<Flow<Result<List<MovieDomainModel>, Error>>> {
-    override suspend fun invoke(): Flow<Result<List<MovieDomainModel>, Error>> {
-        return repository.getMovies().map { result ->
+    override suspend fun invoke(): Flow<Result<List<MovieDomainModel>, Error>> =
+        repository.getMovies().map { result ->
             result.map { list ->
                 list.map { it.toDomain() }
             }
         }
-    }
 }
