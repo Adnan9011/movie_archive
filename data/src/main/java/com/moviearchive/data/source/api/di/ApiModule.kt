@@ -1,8 +1,9 @@
 package com.moviearchive.data.source.api.di
 
-import com.moviearchive.data.source.api.Rout.BASE_URL
 import com.moviearchive.data.source.api.api.ApiService
 import com.moviearchive.data.source.api.api.ApiServiceImpl
+import com.moviearchive.data.source.api.util.CustomHttpLogger
+import com.moviearchive.data.source.api.util.Rout.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +32,7 @@ object ApiModule {
     fun provideHttpClient(): HttpClient {
         return HttpClient(Android) {
             install(Logging) {
+                logger = CustomHttpLogger()
                 level = LogLevel.ALL
             }
             install(DefaultRequest) {
@@ -38,7 +40,9 @@ object ApiModule {
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
             install(ContentNegotiation) {
-                json(Json)
+                json(Json {
+                    ignoreUnknownKeys = true
+                })
             }
         }
     }

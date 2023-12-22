@@ -2,10 +2,10 @@ package com.moviearchive.data.source.api.api
 
 import com.moviearchive.core.Error
 import com.moviearchive.core.Result
-import com.moviearchive.data.source.api.Rout.COMMENTS_URL
-import com.moviearchive.data.source.api.Rout.MOVIES_URL
 import com.moviearchive.data.source.api.model.CommentApiModel
 import com.moviearchive.data.source.api.model.MovieApiModel
+import com.moviearchive.data.source.api.util.Rout.COMMENTS_URL
+import com.moviearchive.data.source.api.util.Rout.MOVIES_URL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
