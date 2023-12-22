@@ -8,6 +8,7 @@ plugins {
         alias(org.jetbrains.kotlin.android) apply false
         alias(org.jetbrains.kotlin.kapt) apply false
         alias(kotlin.parcelize) apply false
+        alias(kotlin.serialization) apply false
     }
 }
 true // Needed to make the Suppress annotation work for the plugins block

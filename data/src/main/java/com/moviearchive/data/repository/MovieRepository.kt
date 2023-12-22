@@ -1,12 +1,10 @@
 package com.moviearchive.data.repository
 
+import com.moviearchive.core.Error
 import com.moviearchive.core.Result
 import com.moviearchive.data.model.MovieDataModel
-import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-class MovieRepository @Inject constructor() {
-    fun getData(): Result<List<MovieDataModel>, String> {
-        val list = listOf<MovieDataModel>()
-        return Result.Success(list)
-    }
+interface MovieRepository {
+    fun getMovies(): Flow<Result<List<MovieDataModel>, Error>>
 }

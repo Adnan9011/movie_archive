@@ -1,10 +1,14 @@
 package com.moviearchive.data.source.api.model
 
-internal data class MovieApiModel(
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class MovieApiModel(
     val id: Int,
     val title: String,
-    val imageUrl: String,
-    val numComments: Int,
-    val numLikes: Int,
-    val isLiked: Boolean
+    @SerialName("image_url") val imageUrl: String,
+    @SerialName("num_comments") val numComments: Int,
+    @SerialName("num_likes") val numLikes: Int,
+    @SerialName("is_liked") val isLiked: Boolean
 )

@@ -1,1 +1,11 @@
 # Android Movie Archive with Compose
+- Compose
+- Mvvm + Clean Architecture
+- Multi Module
+- Navigation Component
+- Hilt
+- Flow, Coroutine
+- Kotlin Serialization
+- Retrofit
+- Room
+- Version Catalog

@@ -1,4 +1,6 @@
 package com.moviearchive.data.source.datastore
 
-internal class DataStoreSource {
+import javax.inject.Inject
+
+class DataStoreSource @Inject constructor() {
 }
