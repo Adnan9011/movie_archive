@@ -1,7 +1,7 @@
 package com.moviearchive.data.di
 
 import com.moviearchive.data.repository.MovieRepository
-import com.moviearchive.data.repository.MovieRespositoryImpl
+import com.moviearchive.data.repository.MovieRepositoryImpl
 import com.moviearchive.data.source.api.api.ApiServiceImpl
 import com.moviearchive.data.source.datastore.DataStoreSource
 import com.moviearchive.data.source.db.dao.MovieDao
@@ -21,7 +21,7 @@ object RepositoryModule {
         api: ApiServiceImpl,
         dao: MovieDao,
         dataStore: DataStoreSource
-    ): MovieRepository = MovieRespositoryImpl(
+    ): MovieRepository = MovieRepositoryImpl(
         api = api,
         dao = dao,
         dataStore = dataStore

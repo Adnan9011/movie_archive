@@ -14,8 +14,8 @@ fun NavGraphBuilder.home(
     composable(Destinations.HOME_ROUT) {
         HomeScreen(
             modifier = modifier,
-            onShowDetail = { movie ->
-                navActions.navigateToDetail(movie)
+            onShowDetail = { movieId ->
+                navActions.navigateToDetail(movieId)
             }
         )
     }

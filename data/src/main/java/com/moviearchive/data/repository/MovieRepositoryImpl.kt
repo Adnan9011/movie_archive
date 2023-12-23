@@ -9,11 +9,13 @@ import com.moviearchive.data.model.toData
 import com.moviearchive.data.source.api.api.ApiServiceImpl
 import com.moviearchive.data.source.datastore.DataStoreSource
 import com.moviearchive.data.source.db.dao.MovieDao
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class MovieRespositoryImpl @Inject constructor(
+@ViewModelScoped
+class MovieRepositoryImpl @Inject constructor(
     val api: ApiServiceImpl,
     val dao: MovieDao,
     val dataStore: DataStoreSource

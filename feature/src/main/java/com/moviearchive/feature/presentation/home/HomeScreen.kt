@@ -18,29 +18,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.moviearchive.feature.R
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.ui.theme.HighPadding
 import com.moviearchive.ui.theme.NormalPadding
 import com.moviearchive.ui.theme.VeryHighPadding
+import com.moviearchive.ui.widget.AppBar
 
 @Composable
 fun HomeScreen(
     modifier: Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-//    scaffoldState: ScaffoldState = rememberScaffoldState(),
-    onShowDetail: (MovieUiModel) -> Unit
+    onShowDetail: (Int) -> Unit
 ) {
     Scaffold(
-//        scaffoldState = scaffoldState,
-        topBar = { }
+        topBar = { AppBar(stringResource(R.string.screen_home)) }
     ) { paddingValues ->
 //        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -52,11 +54,17 @@ fun HomeScreen(
     }
 }
 
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen(modifier = Modifier, onShowDetail = {})
+}
+
 @Composable
 fun HomeContent(
     color: Color,
     modifier: Modifier,
-    onShowDetail: (MovieUiModel) -> Unit
+    onShowDetail: (Int) -> Unit
 ) {
     Surface(
         color = color,
@@ -101,7 +109,7 @@ fun BackgroundOfScreen(index: Int) {
 
 @Composable
 fun LoadImages(
-    onShowDetail: (MovieUiModel) -> Unit
+    onShowDetail: (Int) -> Unit
 ) {
     val scrollState = rememberScrollState()
 

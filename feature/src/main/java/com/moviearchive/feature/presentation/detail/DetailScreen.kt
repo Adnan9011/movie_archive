@@ -1,10 +1,17 @@
 package com.moviearchive.feature.presentation.detail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
@@ -30,6 +37,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -37,27 +45,37 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.moviearchive.feature.model.MovieUiModel
+import com.moviearchive.ui.widget.AppBar
 
 @Composable
 fun DetailScreen(
     modifier: Modifier,
     viewModel: DetailViewModel = hiltViewModel(),
-    movie: MovieUiModel
+    movieId: Int
 ) {
     Scaffold(
-        topBar = {}
+        topBar = { AppBar("Detailed") }
     ) { paddingValues ->
         DetailContent(
             modifier = modifier.padding(paddingValues),
-            movie = movie
+            movie = null
         )
     }
+}
+
+@Preview
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        modifier = Modifier,
+        movieId = 0
+    )
 }
 
 @Composable
 fun DetailContent(
     modifier: Modifier,
-    movie: MovieUiModel
+    movie: MovieUiModel?
 ) {
     val listState = rememberLazyListState()
 
