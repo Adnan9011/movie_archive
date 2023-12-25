@@ -7,13 +7,11 @@ package com.moviearchive.core
 sealed class Result<out V, out E> {
 
     object Loading : Result<Nothing, Nothing>()
-
-    data class Success<out V : Any?> constructor(val value: V) : Result<V, Nothing>()
-
-    data class Failure<out E : Any?> constructor(val error: E) : Result<Nothing, E>()
+    data class Success<out V : Any?>(val value: V) : Result<V, Nothing>()
+    data class Failure<out E : Any?>(val error: E) : Result<Nothing, E>()
 }
 
-inline fun <V, U, reified E : Any?> Result<V, E>.fold(
+inline fun <V, reified E : Any?> Result<V, E>.fold(
     loading: (Unit) -> Unit,
     success: (V) -> Unit,
     failure: (E) -> Unit

@@ -2,165 +2,311 @@ package com.moviearchive.feature.presentation.home
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.moviearchive.core.Result.Failure
+import com.moviearchive.core.Result.Loading
+import com.moviearchive.core.Result.Success
 import com.moviearchive.feature.R
 import com.moviearchive.feature.model.MovieUiModel
+import com.moviearchive.ui.theme.DetailIcon
+import com.moviearchive.ui.theme.GradientBlack
+import com.moviearchive.ui.theme.GradientDarkGray
+import com.moviearchive.ui.theme.GradientWhite
 import com.moviearchive.ui.theme.HighPadding
+import com.moviearchive.ui.theme.HomeTextTitleStyle
+import com.moviearchive.ui.theme.MovieDetailItemTextStyle
+import com.moviearchive.ui.theme.MovieItemHeight
+import com.moviearchive.ui.theme.MovieItemRound
+import com.moviearchive.ui.theme.MovieItemTitleStyle
+import com.moviearchive.ui.theme.MovieItemWidth
 import com.moviearchive.ui.theme.NormalPadding
-import com.moviearchive.ui.theme.VeryHighPadding
-import com.moviearchive.ui.widget.AppBar
+import com.moviearchive.ui.theme.SmallEvelation
+import com.moviearchive.ui.theme.SmallPadding
+import com.moviearchive.ui.widget.AppBarHome
+import com.moviearchive.ui.widget.VerticalGradiant
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun HomeScreen(
     modifier: Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    onShowDetail: (Int) -> Unit
+    onShowDetail: (movieId: Int) -> Unit
 ) {
-    Scaffold(
-        topBar = { AppBar(stringResource(R.string.screen_home)) }
-    ) { paddingValues ->
-//        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
+    Scaffold(topBar = {
+        AppBarHome(
+            stringResource(R.string.screen_home)
+        )
+    }) { paddingValues ->
         HomeContent(
-            color = Color.Black,
+            viewModel = viewModel,
             modifier = modifier.padding(paddingValues),
             onShowDetail = onShowDetail
         )
     }
 }
 
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(modifier = Modifier, onShowDetail = {})
-}
-
 @Composable
 fun HomeContent(
-    color: Color,
+    viewModel: HomeViewModel,
     modifier: Modifier,
-    onShowDetail: (Int) -> Unit
+    onShowDetail: (movieId: Int) -> Unit
 ) {
-    Surface(
-        color = color,
-        modifier = modifier.fillMaxWidth()
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(
+        key1 = true,
     ) {
-        Box() {
-            BackgroundOfScreen(index = 0)
-            Column {
-                Text(
-                    text = "Favorite Movies ",
-                    style = TextStyle(
-                        fontSize = 40.sp,
-                        color = Color.White,
-                        fontFamily = FontFamily.Cursive,
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = Modifier.padding(top = VeryHighPadding, start = HighPadding)
-                )
-                LoadImages(
+        viewModel.getMovies()
+    }
+
+//    Surface(
+//        modifier = modifier
+//            .fillMaxWidth()
+//            .padding(all = SmallPadding)
+//            .background(Color.Gray),
+//        shadowElevation = SmallEvelation,
+//        tonalElevation = SmallEvelation
+//    ) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(R.string.list_of_movies),
+            style = HomeTextTitleStyle,
+            modifier = Modifier.padding(
+                top = NormalPadding,
+                start = HighPadding,
+                bottom = HighPadding
+            )
+        )
+
+        when (uiState) {
+            Loading -> {
+                //Todo: Implement Shimmer
+            }
+
+            is Failure -> {
+                //Todo: Implement Error Handling
+            }
+
+            is Success -> {
+                ShowMovies(
+                    (uiState as Success<PersistentList<MovieUiModel>>).value,
                     onShowDetail = onShowDetail
                 )
             }
         }
     }
-}
-
-@Composable
-fun BackgroundOfScreen(index: Int) {
-//    Image(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .alpha(0.15f),
-//        painter = rememberAsyncImagePainter(
-//            model = ImageRequest.Builder(LocalContext.current)
-//                .data(movies[index].posterLink)
-//                .build()
-//        ),
-//        contentScale = ContentScale.Crop,
-//        contentDescription = "Movie Picture"
-//    )
-}
-
-@Composable
-fun LoadImages(
-    onShowDetail: (Int) -> Unit
-) {
-    val scrollState = rememberScrollState()
-
-//    LazyRow(
-//        Modifier
-//            .verticalScroll(scrollState)
-//            .padding(top = VeryHighPadding)
-//    ) {
-//        items(movies.size) {index ->
-//            ImageItems(
-//                movie = movies[index],
-//                onShowDetail = onShowDetail
-//            )
-//        }
 //    }
 }
 
 @Composable
-fun ImageItems(
+fun ShowMovies(
+    movies: PersistentList<MovieUiModel>,
+    onShowDetail: (movieId: Int) -> Unit
+) {
+    val scrollState = rememberScrollState()
+
+    LazyRow(
+        Modifier
+            .verticalScroll(scrollState)
+    ) {
+        items(movies.size) { index ->
+            MovieItems(
+                movie = movies[index],
+                onShowDetail = onShowDetail
+            )
+        }
+    }
+}
+
+@Composable
+fun MovieItems(
     movie: MovieUiModel,
-    onShowDetail: (MovieUiModel) -> Unit
+    onShowDetail: (movieId: Int) -> Unit
 ) {
     val context = LocalContext.current
 
-    Column(
+    Surface(
         modifier = Modifier
-            .padding(top = VeryHighPadding, start = HighPadding)
-            .clickable {
-                onShowDetail.invoke(movie)
-            }
+            .background(Color.White)
+            .padding(all = SmallPadding)
+            .wrapContentSize()
+            .clip(RoundedCornerShape(size = MovieItemRound)),
+        shadowElevation = SmallEvelation,
+        tonalElevation = SmallEvelation
     ) {
-        Image(
+        ConstraintLayout(
             modifier = Modifier
-                .size(width = 200.dp, height = 300.dp)
-                .clip(RoundedCornerShape(size = 50.dp)),
-            painter = rememberAsyncImagePainter(
-                model = ImageRequest.Builder(context)
-                    .data(movie.imageUrl)
-                    .build()
-            ),
-            contentDescription = null
-        )
-        Text(
-            text = movie.title,
-            style = TextStyle(
-                fontSize = 20.sp,
-                color = Color.White,
-                fontFamily = FontFamily.Cursive,
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier.padding(top = NormalPadding, start = NormalPadding)
-        )
+                .wrapContentSize()
+                .clickable {
+                    onShowDetail.invoke(movie.id)
+                }
+        ) {
+            val (
+                image,
+                gradiant,
+                textComment,
+                iconComment,
+                textLike,
+                iconLike,
+                isLiked)
+                = createRefs()
+
+            Image(
+                modifier = Modifier
+                    .size(width = MovieItemWidth, height = MovieItemHeight)
+                    .constrainAs(image) {
+                        linkTo(
+                            start = parent.start,
+                            end = parent.end,
+                            top = parent.top,
+                            bottom = gradiant.bottom
+                        )
+                    },
+                painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(context).data(movie.imageUrl).build()
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
+            )
+            VerticalGradiant(
+                modifier = Modifier
+                    .width(MovieItemWidth)
+                    .constrainAs(gradiant) {
+                        linkTo(
+                            start = parent.start,
+                            end = parent.end,
+                            top = gradiant.top,
+                            bottom = image.bottom
+                        )
+                    },
+                listColors = listOf(
+                    GradientWhite,
+                    GradientDarkGray,
+                    GradientBlack
+                )
+            ) {
+                Text(
+                    text = movie.title,
+                    style = MovieItemTitleStyle,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = SmallPadding,
+                            bottom = SmallPadding,
+                            start = NormalPadding,
+                            end = NormalPadding
+                        ),
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+            Icon(
+                modifier = Modifier
+                    .padding(start = NormalPadding, top = SmallPadding)
+                    .size(DetailIcon)
+                    .constrainAs(iconComment) {
+                        start.linkTo(image.start)
+                        top.linkTo(image.bottom)
+                    },
+                imageVector = Icons.Filled.MailOutline,
+                tint = Color.Blue,
+                contentDescription = ""
+            )
+            Text(
+                text = movie.numComments.toString(),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                style = MovieDetailItemTextStyle,
+                color = Color.Blue,
+                modifier = Modifier
+                    .padding(start = NormalPadding, top = SmallPadding)
+                    .constrainAs(textComment) {
+                        start.linkTo(iconComment.end)
+                        top.linkTo(iconComment.top)
+                        bottom.linkTo(iconComment.bottom)
+                    }
+            )
+            Icon(
+                imageVector = Icons.Outlined.Favorite,
+                contentDescription = "",
+                tint = Color.Red,
+                modifier = Modifier
+                    .padding(start = HighPadding, top = SmallPadding, bottom = SmallPadding)
+                    .size(DetailIcon)
+                    .constrainAs(iconLike) {
+                        start.linkTo(textComment.end)
+                        top.linkTo(iconComment.top)
+                    },
+            )
+            Text(
+                text = movie.numLikes.toString(),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                style = MovieDetailItemTextStyle,
+                color = Color.Red,
+                modifier = Modifier
+                    .padding(start = NormalPadding, top = SmallPadding, bottom = SmallPadding)
+                    .constrainAs(textLike) {
+                        start.linkTo(iconLike.end)
+                        top.linkTo(iconLike.top)
+                        bottom.linkTo(iconLike.bottom)
+                        horizontalChainWeight = 1f
+                    }
+            )
+
+        }
     }
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    MovieItems(
+        movie = MovieUiModel(
+            id = 0,
+            imageUrl = "",
+            title = "Title",
+            numComments = 0,
+            numLikes = 0,
+            isLiked = false
+        ),
+        onShowDetail = {}
+    )
 }

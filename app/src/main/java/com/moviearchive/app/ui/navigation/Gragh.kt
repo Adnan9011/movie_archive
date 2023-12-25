@@ -35,7 +35,8 @@ fun NavGraph(
         )
 
         detail(
-            modifier = modifier
+            modifier = modifier,
+            navActions = navActions
         )
     }
 }

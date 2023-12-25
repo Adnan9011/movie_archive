@@ -1,0 +1,37 @@
+package com.moviearchive.ui.widget
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
+
+@Composable
+fun LikeAction(
+    onActionClicked: (isLiked: Boolean) -> Unit
+) {
+    var isLikeClicked by remember { mutableStateOf(false) }
+    IconButton(onClick = {
+        isLikeClicked = !isLikeClicked
+        onActionClicked.invoke(isLikeClicked)
+    }) {
+        Icon(
+            imageVector = if (isLikeClicked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primaryContainer
+        )
+    }
+}
+
+@Preview
+@Composable
+fun LikeActionPreview() {
+    LikeAction(onActionClicked = {})
+}

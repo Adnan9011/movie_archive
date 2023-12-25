@@ -1,81 +1,83 @@
 package com.moviearchive.feature.presentation.detail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.moviearchive.feature.model.MovieUiModel
-import com.moviearchive.ui.widget.AppBar
+import com.moviearchive.ui.theme.DetailCardHeight
+import com.moviearchive.ui.theme.DetailIcon
+import com.moviearchive.ui.theme.DetailImageAspectRatio
+import com.moviearchive.ui.theme.MovieDetailItemTextStyle
+import com.moviearchive.ui.theme.MovieDetailTextStyle
+import com.moviearchive.ui.theme.NormalPadding
+import com.moviearchive.ui.theme.SmallPadding
+import com.moviearchive.ui.widget.AppBarDetail
 
 @Composable
 fun DetailScreen(
     modifier: Modifier,
     viewModel: DetailViewModel = hiltViewModel(),
-    movieId: Int
+    movieId: Int,
+    onBackClicked: () -> Unit
 ) {
+
     Scaffold(
-        topBar = { AppBar("Detailed") }
+        topBar = {
+            AppBarDetail(
+                title = "Detailed",
+                onBackClicked = onBackClicked
+            )
+        }
     ) { paddingValues ->
         DetailContent(
             modifier = modifier.padding(paddingValues),
-            movie = null
+            movie = MovieUiModel(
+                id = 0,
+                imageUrl = "",
+                title = "Title",
+                numComments = 0,
+                numLikes = 0,
+                isLiked = false
+            )
         )
     }
-}
-
-@Preview
-@Composable
-fun DetailScreenPreview() {
-    DetailScreen(
-        modifier = Modifier,
-        movieId = 0
-    )
 }
 
 @Composable
 fun DetailContent(
     modifier: Modifier,
-    movie: MovieUiModel?
+    movie: MovieUiModel
 ) {
     val listState = rememberLazyListState()
 
@@ -83,30 +85,22 @@ fun DetailContent(
     ) {
         LazyColumn(state = listState) {
             item {
-//                Header(name = movie.title, imageUrl = movie.posterLink)
+                Header(movie = movie)
             }
             item {
-                Spacer(modifier = Modifier.requiredHeight(8.dp))
+                Spacer(modifier = Modifier.requiredHeight(SmallPadding))
             }
             item {
-//                Text(
-//                    text = movie.overview,
-//                    style = TextStyle(
-//                        fontSize = 16.sp,
-//                        color = Color.Black,
-//                        fontFamily = FontFamily.SansSerif,
-//                        fontWeight = FontWeight.Medium,
-//                        textAlign = TextAlign.Justify,
-//                        lineHeight = 20.sp
-//                    ),
-//                    modifier = Modifier.padding(20.dp)
-//                )
+                Text(
+                    text = movie.title,
+                    style = MovieDetailTextStyle,
+                    modifier = Modifier.padding(NormalPadding)
+                )
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScaffold(
     content: @Composable () -> Unit,
@@ -114,49 +108,32 @@ fun DetailScaffold(
     val backgroundColor = Color.Transparent
     Box(modifier = Modifier.fillMaxSize()) {
         Surface(modifier = Modifier.fillMaxSize(), content = content)
-        TopAppBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopCenter),
-            navigationIcon = {
-                IconButton(onClick = {}) {
-                    Icon(
-                        Icons.Default.ArrowBack,
-                        contentDescription = null
-                    )
-                }
-            },
-            title = { "Detail Activity" },
-            actions = {
-                IconButton(onClick = {}) {
-                    Icon(
-                        Icons.Default.Favorite,
-                        contentDescription = null
-                    )
-                }
-                IconButton(onClick = {}) {
-                    Icon(
-                        Icons.Default.MoreVert,
-                        contentDescription = null
-                    )
-                }
-            }
-        )
     }
 }
 
 @Composable
-fun Header(name: String, imageUrl: String) {
+fun Header(
+    movie: MovieUiModel
+) {
 
     ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-        val (image, info, fab) = createRefs()
+        val (
+            image,
+            info,
+            fab,
+            iconComment,
+            textComment,
+            iconLike,
+            textLike,
+        )
+            = createRefs()
         Image(
-            painter = rememberImagePainter(
-                data = imageUrl
+            painter = rememberAsyncImagePainter(
+                model = movie.imageUrl
             ),
             contentDescription = null,
             modifier = Modifier
-                .aspectRatio(1.77f)
+                .aspectRatio(DetailImageAspectRatio)
                 .constrainAs(image) {
                     width = Dimension.fillToConstraints
                     linkTo(
@@ -171,7 +148,7 @@ fun Header(name: String, imageUrl: String) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .requiredHeight(56.dp)
+                .requiredHeight(DetailCardHeight)
                 .constrainAs(info) {
                     width = Dimension.fillToConstraints
                     linkTo(
@@ -182,32 +159,65 @@ fun Header(name: String, imageUrl: String) {
                     )
                 },
             shape = RectangleShape
-        ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = name,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = TextStyle(
-                        fontSize = 20.sp,
-                        color = Color.White,
-                        fontFamily = FontFamily.Cursive,
-                        textAlign = TextAlign.Start,
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = Modifier
-                        .padding(start = 16.dp, end = 70.dp)
-                        .fillMaxWidth()
-                )
-            }
-        }
+        ) {}
+
+        Icon(
+            modifier = Modifier
+                .padding(start = NormalPadding, top = SmallPadding)
+                .size(DetailIcon)
+                .constrainAs(iconComment) {
+                    start.linkTo(info.start)
+                    top.linkTo(info.top)
+                },
+            imageVector = Icons.Filled.MailOutline,
+            tint = Color.Blue,
+            contentDescription = ""
+        )
+        Text(
+            text = movie.numComments.toString(),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            style = MovieDetailItemTextStyle,
+            color = Color.Blue,
+            modifier = Modifier
+                .padding(start = NormalPadding, top = SmallPadding)
+                .constrainAs(textComment) {
+                    start.linkTo(iconComment.end)
+                    top.linkTo(iconComment.top)
+                    bottom.linkTo(iconComment.bottom)
+                }
+        )
+        Icon(
+            imageVector = Icons.Outlined.Favorite,
+            contentDescription = "",
+            tint = Color.Red,
+            modifier = Modifier
+                .padding(start = NormalPadding, top = SmallPadding)
+                .size(DetailIcon)
+                .constrainAs(iconLike) {
+                    start.linkTo(iconComment.start)
+                    top.linkTo(iconComment.bottom)
+                },
+        )
+        Text(
+            text = movie.numLikes.toString(),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            style = MovieDetailItemTextStyle,
+            color = Color.Red,
+            modifier = Modifier
+                .padding(start = NormalPadding, top = SmallPadding)
+                .constrainAs(textLike) {
+                    start.linkTo(iconLike.end)
+                    top.linkTo(iconLike.top)
+                    bottom.linkTo(iconLike.bottom)
+                }
+        )
 
         Box(
             modifier = Modifier
                 .constrainAs(fab) {
-                    end.linkTo(parent.end, margin = 16.dp)
+                    end.linkTo(parent.end)
                     linkTo(
                         top = info.top,
                         bottom = info.top
@@ -215,11 +225,43 @@ fun Header(name: String, imageUrl: String) {
                 }
         ) {
             FloatingActionButton(
-                onClick = {},
-                modifier = Modifier.padding(16.dp)
+                onClick = {
+                    //Todo: Set Like and undo Liked
+                },
+                modifier = Modifier.padding(NormalPadding),
+                shape = CircleShape
             ) {
-                Icon(Icons.Default.PlayArrow, contentDescription = null)
+                Icon(
+                    if (movie.isLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                    tint = Color.Red,
+                    contentDescription = null
+                )
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        modifier = Modifier,
+        movieId = 0,
+        onBackClicked = {}
+    )
+}
+
+@Preview
+@Composable
+fun HeaderPreview() {
+    Header(
+        MovieUiModel(
+            id = 0,
+            imageUrl = "",
+            title = "Title",
+            numComments = 11,
+            numLikes = 93,
+            isLiked = false
+        )
+    )
 }
