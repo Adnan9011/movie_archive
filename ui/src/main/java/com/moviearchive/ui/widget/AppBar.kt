@@ -51,7 +51,7 @@ fun AppBarDetail(
         ),
         navigationIcon = {
             IconButton(onClick = {
-                onBackClicked.invoke()
+                onBackClicked()
             }) {
                 Icon(
                     Icons.Default.ArrowBack,

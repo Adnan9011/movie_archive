@@ -29,3 +29,12 @@ internal fun MovieDatabaseModel.toData() = MovieDataModel(
     numLikes = numLikes,
     isLiked = isLiked
 )
+
+internal fun MovieDataModel.toDatabase() = MovieDatabaseModel(
+    id = id,
+    title = title,
+    imageUrl = imageUrl,
+    numComments = numComments,
+    numLikes = numLikes,
+    isLiked = isLiked
+)

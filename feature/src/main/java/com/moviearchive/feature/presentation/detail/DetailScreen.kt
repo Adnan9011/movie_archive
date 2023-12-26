@@ -24,6 +24,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -34,6 +37,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.moviearchive.core.Result
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.ui.theme.DetailCardHeight
 import com.moviearchive.ui.theme.DetailIcon
@@ -51,6 +55,13 @@ fun DetailScreen(
     movieId: Int,
     onBackClicked: () -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(
+        key1 = true,
+    ) {
+        viewModel.getMovie(movieId)
+    }
 
     Scaffold(
         topBar = {
@@ -60,17 +71,23 @@ fun DetailScreen(
             )
         }
     ) { paddingValues ->
-        DetailContent(
-            modifier = modifier.padding(paddingValues),
-            movie = MovieUiModel(
-                id = 0,
-                imageUrl = "",
-                title = "Title",
-                numComments = 0,
-                numLikes = 0,
-                isLiked = false
-            )
-        )
+
+        when (uiState) {
+            Result.Loading -> {
+                //Todo: Implement Shimmer
+            }
+
+            is Result.Failure -> {
+                //Todo: Implement Error Handling
+            }
+
+            is Result.Success -> {
+                DetailContent(
+                    modifier = modifier.padding(paddingValues),
+                    movie = (uiState as Result.Success<MovieUiModel>).value
+                )
+            }
+        }
     }
 }
 

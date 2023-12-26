@@ -7,7 +7,7 @@ import com.moviearchive.core.Result
 import com.moviearchive.core.map
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.feature.model.toUi
-import com.moviearchive.usecase.GetMovieUseCase
+import com.moviearchive.usecase.GetAllMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getMovieUseCase: GetMovieUseCase
+    private val getAllMovieUseCase: GetAllMovieUseCase
 ) : ViewModel() {
 
     private val _uiState =
@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
 
     fun getMovies() {
         viewModelScope.launch {
-            getMovieUseCase()
+            getAllMovieUseCase()
                 .flowOn(Dispatchers.IO)
                 .catch { throwable ->
                     updateError(throwable)

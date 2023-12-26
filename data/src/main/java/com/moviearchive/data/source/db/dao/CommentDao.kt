@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CommentDao {
     @Query("SELECT * FROM COMMENT_TABLE WHERE movieId = :movieId")
-    fun getAllComment(movieId: Int): Flow<List<CommentDatabaseModel>>
+    fun getAll(movieId: Int): Flow<List<CommentDatabaseModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(comments: List<CommentDatabaseModel>)

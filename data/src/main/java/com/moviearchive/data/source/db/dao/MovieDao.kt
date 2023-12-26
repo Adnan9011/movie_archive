@@ -10,10 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieDao {
     @Query("SELECT * FROM MOVIE_TABLE")
-    fun getAllMovie(): Flow<List<MovieDatabaseModel>>
+    fun getAll(): Flow<List<MovieDatabaseModel>>
+
+    @Query("SELECT * FROM MOVIE_TABLE WHERE id=:movieId")
+    fun getMovie(movieId: Int): Flow<MovieDatabaseModel>
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE isLiked = true")
-    fun getMoviesLiked(): Flow<List<MovieDatabaseModel>>
+    fun getAllLiked(): Flow<List<MovieDatabaseModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<MovieDatabaseModel>)

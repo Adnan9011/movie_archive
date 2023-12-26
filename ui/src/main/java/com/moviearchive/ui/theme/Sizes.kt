@@ -21,4 +21,4 @@ val DetailCardHeight = 70.dp
 
 val MovieItemRound = 20.dp
 
-val DetailImageAspectRatio = 1.2f
+const val DetailImageAspectRatio = 0.8f
