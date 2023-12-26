@@ -1,7 +1,12 @@
 package com.moviearchive.data.source.db.model
 
-internal data class MovieDatabaseModel(
-    val id: Int,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.moviearchive.data.source.db.util.MOVIE_TABLE
+
+@Entity(tableName = MOVIE_TABLE)
+data class MovieDatabaseModel(
+    @PrimaryKey val id: Int,
     val title: String,
     val imageUrl: String,
     val numComments: Int,

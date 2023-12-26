@@ -93,14 +93,6 @@ fun HomeContent(
         viewModel.getMovies()
     }
 
-//    Surface(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(all = SmallPadding)
-//            .background(Color.Gray),
-//        shadowElevation = SmallEvelation,
-//        tonalElevation = SmallEvelation
-//    ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -175,7 +167,7 @@ fun MovieItems(
             modifier = Modifier
                 .wrapContentSize()
                 .clickable {
-                    onShowDetail.invoke(movie.id)
+                    onShowDetail(movie.id)
                 }
         ) {
             val (
@@ -287,7 +279,6 @@ fun MovieItems(
                         start.linkTo(iconLike.end)
                         top.linkTo(iconLike.top)
                         bottom.linkTo(iconLike.bottom)
-                        horizontalChainWeight = 1f
                     }
             )
 

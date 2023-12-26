@@ -20,7 +20,7 @@ fun LikeAction(
     var isLikeClicked by remember { mutableStateOf(false) }
     IconButton(onClick = {
         isLikeClicked = !isLikeClicked
-        onActionClicked.invoke(isLikeClicked)
+        onActionClicked(isLikeClicked)
     }) {
         Icon(
             imageVector = if (isLikeClicked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,

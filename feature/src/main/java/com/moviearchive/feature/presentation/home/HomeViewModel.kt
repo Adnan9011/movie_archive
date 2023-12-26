@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
 
     fun getMovies() {
         viewModelScope.launch {
-            getMovieUseCase.invoke()
+            getMovieUseCase()
                 .flowOn(Dispatchers.IO)
                 .catch { throwable ->
                     updateError(throwable)
