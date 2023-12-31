@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetAllMovieUseCase @Inject internal constructor(
+class GetAndStoreAllMovieUseCase @Inject internal constructor(
     private val repository: MovieRepository
 ) : UseCaseNoInput<Flow<Result<List<MovieDomainModel>, Error>>> {
     override suspend fun invoke(): Flow<Result<List<MovieDomainModel>, Error>> {

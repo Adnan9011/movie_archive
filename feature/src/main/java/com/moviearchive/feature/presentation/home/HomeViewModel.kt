@@ -7,7 +7,8 @@ import com.moviearchive.core.Result
 import com.moviearchive.core.map
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.feature.model.toUi
-import com.moviearchive.usecase.GetAllMovieUseCase
+import com.moviearchive.usecase.GetAndStoreAllMovieUseCase
+import com.moviearchive.usecase.GetMoviesOrFavoriteMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -22,22 +23,43 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getAllMovieUseCase: GetAllMovieUseCase
+    private val getAndStoreAllMovieUseCase: GetAndStoreAllMovieUseCase,
+    private val getAllFavoriteMovieUseCase: GetMoviesOrFavoriteMoviesUseCase,
 ) : ViewModel() {
 
-    private val _uiState =
+    private val _uiMovies =
         MutableStateFlow<Result<PersistentList<MovieUiModel>, Error>>(Result.Loading)
-    val uiState = _uiState.asStateFlow()
+    val uiMovies = _uiMovies.asStateFlow()
 
     fun getMovies() {
         viewModelScope.launch {
-            getAllMovieUseCase()
+            getAndStoreAllMovieUseCase()
                 .flowOn(Dispatchers.IO)
                 .catch { throwable ->
                     updateError(throwable)
                 }
                 .collect { result ->
-                    _uiState.value =
+                    _uiMovies.value =
+                        result.map { list ->
+                            list.map {
+                                it.toUi()
+                            }
+                        }.map {
+                            it.toPersistentList()
+                        }
+                }
+        }
+    }
+
+    fun getFavoriteMovies(isFavorite: Boolean) {
+        viewModelScope.launch {
+            getAllFavoriteMovieUseCase(isFavorite)
+                .flowOn(Dispatchers.IO)
+                .catch { throwable ->
+                    updateError(throwable)
+                }
+                .collect { result ->
+                    _uiMovies.value =
                         result.map { list ->
                             list.map {
                                 it.toUi()
@@ -50,10 +72,10 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateLoading(isLoading: Boolean) {
-        _uiState.update { Result.Loading }
+        _uiMovies.update { Result.Loading }
     }
 
     private fun updateError(throwable: Throwable) {
-        _uiState.update { Result.Failure(Error(throwable = throwable)) }
+        _uiMovies.update { Result.Failure(Error(throwable = throwable)) }
     }
 }

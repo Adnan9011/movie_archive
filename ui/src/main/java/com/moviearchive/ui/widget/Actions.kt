@@ -15,12 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LikeAction(
-    onActionClicked: (isLiked: Boolean) -> Unit
+    onFavoriteClicked: (isLiked: Boolean) -> Unit
 ) {
     var isLikeClicked by remember { mutableStateOf(false) }
     IconButton(onClick = {
         isLikeClicked = !isLikeClicked
-        onActionClicked(isLikeClicked)
+        onFavoriteClicked(isLikeClicked)
     }) {
         Icon(
             imageVector = if (isLikeClicked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
@@ -33,5 +33,5 @@ fun LikeAction(
 @Preview
 @Composable
 fun LikeActionPreview() {
-    LikeAction(onActionClicked = {})
+    LikeAction(onFavoriteClicked = {})
 }

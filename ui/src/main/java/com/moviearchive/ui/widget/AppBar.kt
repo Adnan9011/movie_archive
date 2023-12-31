@@ -16,7 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBarHome(
-    title: String
+    title: String,
+    onFavoriteClicked: (isFavorite: Boolean) -> Unit
 ) {
     TopAppBar(
         title = { Text(text = title) },
@@ -28,9 +29,8 @@ fun AppBarHome(
         ),
         actions = {
             LikeAction(
-            ) { isLiked ->
-
-            }
+                onFavoriteClicked = onFavoriteClicked
+            )
         }
     )
 }
@@ -64,7 +64,10 @@ fun AppBarDetail(
 
 @Preview(showBackground = true)
 @Composable
-fun AppBarHomePreview() = AppBarHome(title = "Home Title")
+fun AppBarHomePreview() = AppBarHome(
+    title = "Home Title",
+    onFavoriteClicked = {}
+)
 
 @Preview(showBackground = true)
 @Composable

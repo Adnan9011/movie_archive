@@ -4,8 +4,11 @@ package com.moviearchive.feature.presentation.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,7 +20,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -26,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -43,11 +49,15 @@ import com.moviearchive.core.Result.Loading
 import com.moviearchive.core.Result.Success
 import com.moviearchive.feature.R
 import com.moviearchive.feature.model.MovieUiModel
+import com.moviearchive.feature.util.BANNER_IMAGE_URL
 import com.moviearchive.ui.theme.DetailIcon
+import com.moviearchive.ui.theme.EmptyMovieSize
+import com.moviearchive.ui.theme.EmptyTextStyle
 import com.moviearchive.ui.theme.GradientBlack
 import com.moviearchive.ui.theme.GradientDarkGray
 import com.moviearchive.ui.theme.GradientWhite
 import com.moviearchive.ui.theme.HighPadding
+import com.moviearchive.ui.theme.HomeBannerHeight
 import com.moviearchive.ui.theme.HomeTextTitleStyle
 import com.moviearchive.ui.theme.MovieDetailItemTextStyle
 import com.moviearchive.ui.theme.MovieItemHeight
@@ -69,7 +79,10 @@ fun HomeScreen(
 ) {
     Scaffold(topBar = {
         AppBarHome(
-            stringResource(R.string.screen_home)
+            title = stringResource(R.string.screen_home),
+            onFavoriteClicked = { isFavorite ->
+                viewModel.getFavoriteMovies(isFavorite)
+            }
         )
     }) { paddingValues ->
         HomeContent(
@@ -86,7 +99,7 @@ fun HomeContent(
     modifier: Modifier,
     onShowDetail: (movieId: Int) -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiMovies.collectAsState()
 
     LaunchedEffect(
         key1 = true,
@@ -98,13 +111,15 @@ fun HomeContent(
         modifier = modifier
             .fillMaxWidth()
     ) {
+        TopBanner()
+
         Text(
             text = stringResource(R.string.list_of_movies),
             style = HomeTextTitleStyle,
             modifier = Modifier.padding(
                 top = NormalPadding,
                 start = HighPadding,
-                bottom = HighPadding
+                bottom = NormalPadding
             )
         )
 
@@ -118,14 +133,75 @@ fun HomeContent(
             }
 
             is Success -> {
-                ShowMovies(
-                    (uiState as Success<PersistentList<MovieUiModel>>).value,
-                    onShowDetail = onShowDetail
-                )
+                val movies = (uiState as Success<PersistentList<MovieUiModel>>).value
+                if (movies.isEmpty()) {
+                    EmptyMovies()
+                } else {
+                    ShowMovies(
+                        movies = movies,
+                        onShowDetail = onShowDetail
+                    )
+                }
             }
         }
     }
-//    }
+}
+
+@Composable
+fun TopBanner() {
+    val context = LocalContext.current
+
+    Box(
+        modifier = Modifier
+            .padding(
+                start = SmallPadding,
+                end = SmallPadding,
+                top = NormalPadding,
+                bottom = SmallPadding,
+            )
+            .fillMaxWidth()
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(HomeBannerHeight)
+                .clip(RoundedCornerShape(size = MovieItemRound)),
+            painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(context).data(BANNER_IMAGE_URL).build()
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = null
+        )
+    }
+}
+
+@Composable
+fun EmptyMovies() {
+    Column(
+        modifier = Modifier
+            .padding(NormalPadding)
+            .fillMaxWidth()
+            .height(MovieItemHeight),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            modifier = Modifier
+                .size(EmptyMovieSize),
+            imageVector = Icons.Filled.Warning,
+            tint = Color.DarkGray,
+            contentDescription = null
+        )
+        Divider(
+            Modifier
+                .height(NormalPadding),
+            color = Color.Transparent
+        )
+        Text(
+            text = stringResource(id = R.string.movie_not_found),
+            style = EmptyTextStyle
+        )
+    }
 }
 
 @Composable
@@ -229,7 +305,8 @@ fun MovieItems(
                             start = NormalPadding,
                             end = NormalPadding
                         ),
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
             }
 
@@ -288,6 +365,18 @@ fun MovieItems(
 
         }
     }
+}
+
+@Preview
+@Composable
+fun TopBannerPreview() {
+    TopBanner()
+}
+
+@Preview
+@Composable
+fun EmptyMoviesPreview() {
+    EmptyMovies()
 }
 
 @Preview

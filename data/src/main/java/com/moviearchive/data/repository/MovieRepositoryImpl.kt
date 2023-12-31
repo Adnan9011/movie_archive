@@ -45,10 +45,14 @@ class MovieRepositoryImpl @Inject constructor(
                 Result.Failure(Error(throwable = throwable))
             }
 
-    override fun getAllLiked(): Flow<List<MovieDataModel>> =
-        dao.getAllLiked().map { list ->
-            list.map { it.toData() }
-        }
+    override fun getAllLiked(): Flow<Result<List<MovieDataModel>, Error>> =
+        dao.getAllLiked()
+            .map { list ->
+                list.map { it.toData() }
+            }.map { Result.Success(value = it) }
+            .catch { throwable ->
+                Result.Failure(Error(throwable = throwable))
+            }
 
     override suspend fun insertAll(movies: List<MovieDataModel>) =
         dao.insertAll(

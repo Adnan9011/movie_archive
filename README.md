@@ -1,54 +1,52 @@
-# Android Movie Archive with Compose
-
 # Movie Archive
 
 Welcome to Movie Archive, an open-source Android application built in Kotlin for managing and
-cataloging your movie collection.
+cataloguing your movie collection.
 
-# Features
+## Features
 
-- Compose UI:
+### Compose UI:
 
 Utilizes Jetpack Compose for building a modern and reactive user interface.
 
-- MVVM + Clean Architecture:
+### MVVM + Clean Architecture:
 
 Implements MVVM architectural pattern with Clean Architecture principles for better separation of
 concerns.
 
-- MultiModule:
+### MultiModule:
 
 Organizes the project into multiple modules for improved scalability and maintainability.
 
-- Navigation Component:
+### Navigation Component:
 
 Uses the Navigation Component to handle in-app navigation effectively.
 
-- Hilt:
+### Hilt:
 
 Incorporates Hilt for dependency injection to facilitate easier app testing and maintenance.
 
-- Flow, Coroutine:
+### Flow, Coroutine:
 
 Leveraging Kotlin's Flow and Coroutine for asynchronous programming and reactive data streams.
 
-- Ktor:
+### Ktor:
 
 Implements Ktor for networking capabilities, making API requests and handling responses.
 
-- Kotlin Serialization:
+### Kotlin Serialization:
 
 Utilizes Kotlin Serialization for parsing JSON data.
 
-- Room:
+### Room:
 
 Implements Room persistence library for local database management.
 
-- Version Catalog:
+### Version Catalog:
 
 Utilizes a version catalog for easy management of library versions and dependencies.
 
-# Getting Started
+## Getting Started
 
 To build and run the Movie Archive app locally, follow these steps:
 

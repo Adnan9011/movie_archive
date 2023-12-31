@@ -2,4 +2,5 @@
 <resources>
     <string name="screen_home">Movies</string>
     <string name="list_of_movies">List Of Movies</string>
+    <string name="movie_not_found">Movie not found</string>
 </resources>
