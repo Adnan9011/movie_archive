@@ -63,28 +63,29 @@ fun DetailScreen(
         viewModel.getMovie(movieId)
     }
 
-    Scaffold(
-        topBar = {
-            AppBarDetail(
-                title = "Detailed",
-                onBackClicked = onBackClicked
-            )
+    when (uiState) {
+        Result.Loading -> {
+            //Todo: Implement Shimmer
         }
-    ) { paddingValues ->
 
-        when (uiState) {
-            Result.Loading -> {
-                //Todo: Implement Shimmer
-            }
+        is Result.Failure -> {
+            //Todo: Implement Error Handling
+        }
 
-            is Result.Failure -> {
-                //Todo: Implement Error Handling
-            }
-
-            is Result.Success -> {
+        is Result.Success -> {
+            val movie = (uiState as Result.Success<MovieUiModel>).value
+            Scaffold(
+                topBar = {
+                    AppBarDetail(
+                        title = movie.title,
+                        onBackClicked = onBackClicked
+                    )
+                }
+            ) { paddingValues ->
                 DetailContent(
                     modifier = modifier.padding(paddingValues),
-                    movie = (uiState as Result.Success<MovieUiModel>).value
+                    movie = movie,
+                    viewModel = viewModel
                 )
             }
         }
@@ -94,15 +95,17 @@ fun DetailScreen(
 @Composable
 fun DetailContent(
     modifier: Modifier,
-    movie: MovieUiModel
+    movie: MovieUiModel,
+    viewModel: DetailViewModel
 ) {
     val listState = rememberLazyListState()
 
     DetailScaffold(
+        modifier = modifier
     ) {
         LazyColumn(state = listState) {
             item {
-                Header(movie = movie)
+                Header(movie = movie, viewModel = viewModel)
             }
             item {
                 Spacer(modifier = Modifier.requiredHeight(SmallPadding))
@@ -120,17 +123,19 @@ fun DetailContent(
 
 @Composable
 fun DetailScaffold(
+    modifier: Modifier,
     content: @Composable () -> Unit,
 ) {
     val backgroundColor = Color.Transparent
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         Surface(modifier = Modifier.fillMaxSize(), content = content)
     }
 }
 
 @Composable
 fun Header(
-    movie: MovieUiModel
+    movie: MovieUiModel,
+    viewModel: DetailViewModel
 ) {
 
     ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
@@ -243,7 +248,15 @@ fun Header(
         ) {
             FloatingActionButton(
                 onClick = {
-                    //Todo: Set Like and undo Liked
+                    viewModel.updateMovie(
+                        movie.copy(
+                            isLiked = !movie.isLiked,
+                            numLikes = movie.numLikes + when (!movie.isLiked) {
+                                true -> 1
+                                false -> -1
+                            }
+                        )
+                    )
                 },
                 modifier = Modifier.padding(NormalPadding),
                 shape = CircleShape
@@ -265,20 +278,5 @@ fun DetailScreenPreview() {
         modifier = Modifier,
         movieId = 0,
         onBackClicked = {}
-    )
-}
-
-@Preview
-@Composable
-fun HeaderPreview() {
-    Header(
-        MovieUiModel(
-            id = 0,
-            imageUrl = "",
-            title = "Title",
-            numComments = 11,
-            numLikes = 93,
-            isLiked = false
-        )
     )
 }

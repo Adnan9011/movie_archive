@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.moviearchive.data.source.db.model.MovieDatabaseModel
 import kotlinx.coroutines.flow.Flow
 
@@ -18,7 +19,10 @@ interface MovieDao {
     @Query("SELECT * FROM MOVIE_TABLE WHERE isLiked = true")
     fun getAllLiked(): Flow<List<MovieDatabaseModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Update
+    suspend fun update(movie: MovieDatabaseModel)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(movies: List<MovieDatabaseModel>)
 
     @Query("DELETE FROM MOVIE_TABLE")

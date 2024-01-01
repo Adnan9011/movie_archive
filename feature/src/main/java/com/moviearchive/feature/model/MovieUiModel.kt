@@ -2,7 +2,7 @@ package com.moviearchive.feature.model
 
 import com.moviearchive.model.MovieDomainModel
 
-class MovieUiModel(
+data class MovieUiModel(
     val id: Int,
     val title: String,
     val imageUrl: String,
@@ -12,6 +12,15 @@ class MovieUiModel(
 )
 
 internal fun MovieDomainModel.toUi() = MovieUiModel(
+    id = id,
+    title = title,
+    imageUrl = imageUrl,
+    numComments = numComments,
+    numLikes = numLikes,
+    isLiked = isLiked
+)
+
+internal fun MovieUiModel.toDomain() = MovieDomainModel(
     id = id,
     title = title,
     imageUrl = imageUrl,

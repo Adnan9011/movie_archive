@@ -6,8 +6,10 @@ import com.moviearchive.core.Error
 import com.moviearchive.core.Result
 import com.moviearchive.core.map
 import com.moviearchive.feature.model.MovieUiModel
+import com.moviearchive.feature.model.toDomain
 import com.moviearchive.feature.model.toUi
 import com.moviearchive.usecase.GetMovieUseCase
+import com.moviearchive.usecase.UpdateMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    val getMovieUseCase: GetMovieUseCase
+    val getMovieUseCase: GetMovieUseCase,
+    val updateMovieUseCase: UpdateMovieUseCase
 ) : ViewModel() {
 
     private val _uiState =
@@ -38,6 +41,12 @@ class DetailViewModel @Inject constructor(
                     _uiState.value =
                         result.map { it.toUi() }
                 }
+        }
+    }
+
+    fun updateMovie(movie: MovieUiModel) {
+        viewModelScope.launch {
+            updateMovieUseCase(movie.toDomain())
         }
     }
 

@@ -54,6 +54,10 @@ class MovieRepositoryImpl @Inject constructor(
                 Result.Failure(Error(throwable = throwable))
             }
 
+    override suspend fun update(movie: MovieDataModel) {
+        dao.update(movie.toDatabase())
+    }
+
     override suspend fun insertAll(movies: List<MovieDataModel>) =
         dao.insertAll(
             movies.map { model ->

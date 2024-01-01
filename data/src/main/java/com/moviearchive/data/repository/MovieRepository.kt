@@ -10,6 +10,8 @@ interface MovieRepository {
     fun getAll(): Flow<Result<List<MovieDataModel>, Error>>
     fun get(id: Int): Flow<Result<MovieDataModel, Error>>
     fun getAllLiked(): Flow<Result<List<MovieDataModel>, Error>>
+
+    suspend fun update(movie: MovieDataModel)
     suspend fun insertAll(movies: List<MovieDataModel>)
     suspend fun deleteAll()
 }

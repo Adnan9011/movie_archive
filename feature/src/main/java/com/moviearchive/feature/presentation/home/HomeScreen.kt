@@ -19,6 +19,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Favorite
@@ -361,6 +363,17 @@ fun MovieItems(
                         top.linkTo(iconLike.top)
                         bottom.linkTo(iconLike.bottom)
                     }
+            )
+            Icon(
+                if (movie.isLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                tint = Color.Red,
+                modifier = Modifier
+                    .padding(NormalPadding)
+                    .constrainAs(isLiked) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                    },
+                contentDescription = null
             )
 
         }

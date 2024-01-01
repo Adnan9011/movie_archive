@@ -19,3 +19,12 @@ internal fun MovieDataModel.toDomain() = MovieDomainModel(
     numLikes = numLikes,
     isLiked = isLiked
 )
+
+internal fun MovieDomainModel.toData() = MovieDataModel(
+    id = id,
+    title = title,
+    imageUrl = imageUrl,
+    numComments = numComments,
+    numLikes = numLikes,
+    isLiked = isLiked
+)
