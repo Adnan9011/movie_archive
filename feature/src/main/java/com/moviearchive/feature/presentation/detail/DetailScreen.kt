@@ -273,7 +273,7 @@ fun Header(
 
 @Preview
 @Composable
-fun DetailScreenPreview() {
+private fun DetailScreenPreview() {
     DetailScreen(
         modifier = Modifier,
         movieId = 0,

@@ -29,7 +29,7 @@ fun VerticalGradiant(
 
 @Preview
 @Composable
-fun VerticalGradiantPreview() {
+private fun VerticalGradiantPreview() {
     VerticalGradiant(
         modifier = Modifier,
         listColors = listOf(Color.White, Color.DarkGray, Color.Black)

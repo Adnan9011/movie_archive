@@ -32,6 +32,6 @@ fun LikeAction(
 
 @Preview
 @Composable
-fun LikeActionPreview() {
+private fun LikeActionPreview() {
     LikeAction(onFavoriteClicked = {})
 }

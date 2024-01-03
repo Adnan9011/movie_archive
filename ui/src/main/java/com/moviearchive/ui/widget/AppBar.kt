@@ -64,11 +64,11 @@ fun AppBarDetail(
 
 @Preview(showBackground = true)
 @Composable
-fun AppBarHomePreview() = AppBarHome(
+private fun AppBarHomePreview() = AppBarHome(
     title = "Home Title",
     onFavoriteClicked = {}
 )
 
 @Preview(showBackground = true)
 @Composable
-fun AppBaDetailPreview() = AppBarDetail(title = "Detailed Title", onBackClicked = {})
+private fun AppBaDetailPreview() = AppBarDetail(title = "Detailed Title", onBackClicked = {})
