@@ -13,13 +13,27 @@ android {
     defaultConfig {
         applicationId = "com.moviearchive.app"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+    sourceSets.getByName("main") {
+        java.srcDir("src/main/kotlin")
+    }
+    sourceSets.getByName("test") {
+        java.srcDir("src/test/kotlin")
+    }
+    // For KSP
+    applicationVariants.configureEach {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/${this@configureEach.name}/kotlin")
+            }
         }
     }
 
@@ -52,11 +66,16 @@ android {
     }
 }
 
+ksp {
+    arg("KOIN_CONFIG_CHECK", "true")
+}
+
 dependencies {
 
     projects.apply {
         implementation(ui)
         implementation(navigation)
+        implementation(di)
     }
 
     val composeBom = platform(libs.compose.bom)
@@ -80,6 +99,13 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.navigation)
+    implementation(libs.koin.test.junit4)
+    implementation(libs.koin.ksp.annotation)
+    implementation(libs.koin.ksp)
 
     implementation(libs.compose.navigation)
 }

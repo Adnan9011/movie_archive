@@ -49,6 +49,11 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
+    implementation(libs.koin.android)
+    implementation(libs.koin.test.junit4)
+    implementation(libs.koin.ksp.annotation)
+    ksp(libs.koin.ksp)
+
     implementation(libs.kotlinx.serialization)
 
     implementation(libs.ktor.core)

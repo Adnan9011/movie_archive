@@ -50,4 +50,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.test.junit4)
 }

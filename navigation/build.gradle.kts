@@ -54,4 +54,9 @@ dependencies {
 
     implementation(libs.hilt.compose.navigation)
     implementation(libs.compose.navigation)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.navigation)
+    implementation(libs.koin.test.junit4)
 }
