@@ -3,6 +3,13 @@
 Welcome to Movie Archive, an open-source Android application built in Kotlin for managing and
 cataloguing your movie collection.
 
+## TAG
+
+- Implementation ROOM &
+  HILT : https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-hilt-room
+- Implementation ROOM &
+  KOIN : https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-koin-room
+
 ## Features
 
 ### Compose UI:
@@ -61,4 +68,3 @@ Make your contributions following the project's coding conventions.
 
 License
 This project is licensed under the MIT License.
-
