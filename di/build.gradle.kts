@@ -36,10 +36,10 @@ android {
 
 dependencies {
     projects.apply {
-        implementation(navigation)
         implementation(feature)
         implementation(domain)
         implementation(data)
+        implementation(core)
     }
 
     testImplementation(libs.junit)
@@ -47,6 +47,4 @@ dependencies {
 
     implementation(libs.koin.android)
     implementation(libs.koin.test.junit4)
-    implementation(libs.koin.ksp.annotation)
-    implementation(libs.koin.ksp)
 }

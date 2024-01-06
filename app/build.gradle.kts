@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
 android {
@@ -20,20 +19,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-    }
-    sourceSets.getByName("main") {
-        java.srcDir("src/main/kotlin")
-    }
-    sourceSets.getByName("test") {
-        java.srcDir("src/test/kotlin")
-    }
-    // For KSP
-    applicationVariants.configureEach {
-        kotlin.sourceSets {
-            getByName(name) {
-                kotlin.srcDir("build/generated/ksp/${this@configureEach.name}/kotlin")
-            }
         }
     }
 
@@ -66,10 +51,6 @@ android {
     }
 }
 
-ksp {
-    arg("KOIN_CONFIG_CHECK", "true")
-}
-
 dependencies {
 
     projects.apply {
@@ -97,15 +78,10 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.navigation)
     implementation(libs.koin.test.junit4)
-    implementation(libs.koin.ksp.annotation)
-    implementation(libs.koin.ksp)
 
     implementation(libs.compose.navigation)
 }

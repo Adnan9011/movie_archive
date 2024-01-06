@@ -35,7 +35,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.moviearchive.core.Result.Failure
@@ -56,11 +55,12 @@ import com.moviearchive.ui.theme.NormalPadding
 import com.moviearchive.ui.theme.SmallPadding
 import com.moviearchive.ui.widget.AppBarHome
 import kotlinx.collections.immutable.PersistentList
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = koinViewModel(),
     onShowDetail: (movieId: Int) -> Unit
 ) {
     Scaffold(topBar = {

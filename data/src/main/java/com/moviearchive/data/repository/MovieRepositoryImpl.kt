@@ -5,18 +5,15 @@ import com.moviearchive.core.Result
 import com.moviearchive.data.model.MovieDataModel
 import com.moviearchive.data.model.toData
 import com.moviearchive.data.model.toDatabase
-import com.moviearchive.data.source.api.api.ApiServiceImpl
+import com.moviearchive.data.source.api.api.ApiService
 import com.moviearchive.data.source.datastore.DataStoreSource
 import com.moviearchive.data.source.db.dao.MovieDao
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-@ViewModelScoped
-class MovieRepositoryImpl @Inject constructor(
-    val api: ApiServiceImpl,
+class MovieRepositoryImpl(
+    val api: ApiService,
     val dao: MovieDao,
     val dataStore: DataStoreSource
 ) : MovieRepository {

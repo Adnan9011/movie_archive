@@ -22,9 +22,9 @@ Organizes the project into multiple modules for improved scalability and maintai
 
 Uses the Navigation Component to handle in-app navigation effectively.
 
-### Hilt:
+### Koin:
 
-Incorporates Hilt for dependency injection to facilitate easier app testing and maintenance.
+Incorporates Koin for dependency injection to facilitate easier app testing and maintenance.
 
 ### Flow, Coroutine:
 

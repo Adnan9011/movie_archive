@@ -1,6 +1,6 @@
 package com.moviearchive.feature.model
 
-import com.moviearchive.model.MovieDomainModel
+import com.moviearchive.domain.model.MovieDomainModel
 
 data class MovieUiModel(
     val id: Int,

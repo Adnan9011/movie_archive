@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.moviearchive.core.Error
 import com.moviearchive.core.Result
 import com.moviearchive.core.map
+import com.moviearchive.domain.usecase.GetAndStoreAllMovieUseCase
+import com.moviearchive.domain.usecase.GetMoviesOrFavoriteMoviesUseCase
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.feature.model.toUi
-import com.moviearchive.usecase.GetAndStoreAllMovieUseCase
-import com.moviearchive.usecase.GetMoviesOrFavoriteMoviesUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
@@ -19,12 +18,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel(
     private val getAndStoreAllMovieUseCase: GetAndStoreAllMovieUseCase,
-    private val getAllFavoriteMovieUseCase: GetMoviesOrFavoriteMoviesUseCase,
+    private val getAllFavoriteMovieUseCase: GetMoviesOrFavoriteMoviesUseCase
 ) : ViewModel() {
 
     private val _uiMovies =

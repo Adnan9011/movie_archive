@@ -1,6 +1,6 @@
 package com.moviearchive.feature.model
 
-import com.moviearchive.model.CommentDomainModel
+import com.moviearchive.domain.model.CommentDomainModel
 
 data class CommentUiModel(
     val id: Int,

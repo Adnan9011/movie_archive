@@ -11,9 +11,8 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class ApiServiceImpl @Inject constructor(private val httpClient: HttpClient) : ApiService {
+class ApiServiceImpl(val httpClient: HttpClient) : ApiService {
 
     override fun getMovies(): Flow<Result<List<MovieApiModel>, Error>> = flow {
         emit(Result.Loading)

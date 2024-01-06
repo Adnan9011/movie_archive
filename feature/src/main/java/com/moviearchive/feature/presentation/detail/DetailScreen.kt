@@ -35,7 +35,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.moviearchive.core.Result
 import com.moviearchive.feature.model.MovieUiModel
@@ -47,11 +46,12 @@ import com.moviearchive.ui.theme.MovieDetailTextStyle
 import com.moviearchive.ui.theme.NormalPadding
 import com.moviearchive.ui.theme.SmallPadding
 import com.moviearchive.ui.widget.AppBarDetail
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailScreen(
     modifier: Modifier,
-    viewModel: DetailViewModel = hiltViewModel(),
+    viewModel: DetailViewModel = koinViewModel(),
     movieId: Int,
     onBackClicked: () -> Unit
 ) {

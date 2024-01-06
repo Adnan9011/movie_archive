@@ -1,4 +1,4 @@
-package com.moviearchive.model
+package com.moviearchive.domain.model
 
 import com.moviearchive.data.model.CommentDataModel
 

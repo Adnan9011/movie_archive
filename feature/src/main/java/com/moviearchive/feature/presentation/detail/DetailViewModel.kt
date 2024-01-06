@@ -5,12 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.moviearchive.core.Error
 import com.moviearchive.core.Result
 import com.moviearchive.core.map
+import com.moviearchive.domain.usecase.GetMovieUseCase
+import com.moviearchive.domain.usecase.UpdateMovieUseCase
 import com.moviearchive.feature.model.MovieUiModel
 import com.moviearchive.feature.model.toDomain
 import com.moviearchive.feature.model.toUi
-import com.moviearchive.usecase.GetMovieUseCase
-import com.moviearchive.usecase.UpdateMovieUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,10 +17,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(
+class DetailViewModel(
     val getMovieUseCase: GetMovieUseCase,
     val updateMovieUseCase: UpdateMovieUseCase
 ) : ViewModel() {

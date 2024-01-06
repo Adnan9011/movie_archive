@@ -9,9 +9,8 @@ import com.moviearchive.data.source.api.api.ApiServiceImpl
 import com.moviearchive.data.source.db.dao.CommentDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class CommentRepositoryImpl @Inject constructor(
+class CommentRepositoryImpl constructor(
     val api: ApiServiceImpl,
     val dao: CommentDao
 ) : CommentRepository {

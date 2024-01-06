@@ -52,7 +52,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.hilt.compose.navigation)
     implementation(libs.compose.navigation)
 
     implementation(libs.koin.android)

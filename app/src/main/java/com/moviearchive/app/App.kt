@@ -1,12 +1,11 @@
 package com.moviearchive.app
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.moviearchive.di.ProvideModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-@HiltAndroidApp
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -14,7 +13,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-//            module(AppModule().)
+            modules(ProvideModules.getModules())
         }
     }
 }
