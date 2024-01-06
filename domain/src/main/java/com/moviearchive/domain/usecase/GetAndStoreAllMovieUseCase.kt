@@ -10,21 +10,8 @@ import com.moviearchive.domain.util.UseCaseNoInput
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-//class GetAndStoreAllMovieUseCase (
-//    val repository: MovieRepository
-//) : UseCaseNoInput<Flow<Result<List<MovieDomainModel>, Error>>> {
-//    override suspend fun invoke(): Flow<Result<List<MovieDomainModel>, Error>> {
-//        repository.getFromApi()
-//        return repository.getAll().map { result ->
-//            result.map { list ->
-//                list.map { it.toDomain() }
-//            }
-//        }
-//    }
-//}
-
-class GetAndStoreAllMovieUseCase(
-    val repository: MovieRepository
+class GetAndStoreAllMovieUseCase internal constructor(
+    private val repository: MovieRepository
 ) : UseCaseNoInput<Flow<Result<List<MovieDomainModel>, Error>>> {
     override suspend fun invoke(): Flow<Result<List<MovieDomainModel>, Error>> {
         repository.getFromApi()
