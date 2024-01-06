@@ -3,6 +3,8 @@
 Welcome to Movie Archive, an open-source Android application built in Kotlin for managing and
 cataloguing your movie collection.
 
+https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-8788-73070a80b92f
+
 ## TAG
 
 - Implementation ROOM &
