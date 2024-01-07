@@ -47,7 +47,7 @@ Implements Ktor for networking capabilities, making API requests and handling re
 
 Utilizes Kotlin Serialization for parsing JSON data.
 
-### Room:
+### SQLDelight:
 
 Implements Room persistence library for local database management.
 

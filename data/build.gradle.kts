@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -35,8 +36,12 @@ android {
     }
 }
 
-ksp {
-    arg("KOIN_CONFIG_CHECK", "true")
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("com.moviearchive.data")
+        }
+    }
 }
 
 dependencies {
@@ -64,4 +69,7 @@ dependencies {
     implementation(libs.room.ktx)
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
+
+    implementation(libs.sqldelight.android)
+    implementation(libs.sqldelight.coroutines)
 }

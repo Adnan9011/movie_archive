@@ -22,7 +22,7 @@ kotlinx-serialization = "1.6.2"
 ktor = "2.3.7"
 room = "2.6.1"
 koin = "3.5.3"
-koin-ksp = "1.3.0"
+sqldelight = "2.0.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -63,6 +63,9 @@ koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", versi
 koin-compose-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation", version.ref = "koin" }
 koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin" }
 
+sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
+
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
@@ -71,4 +74,6 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-android" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 [bundles]
