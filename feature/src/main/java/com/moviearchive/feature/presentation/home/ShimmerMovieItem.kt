@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
-import com.moviearchive.feature.util.ShimmerRectagleHeight
+import com.moviearchive.feature.util.ShimmerRectangleHeight
 import com.moviearchive.ui.theme.MovieItemHeight
 import com.moviearchive.ui.theme.MovieItemRound
 import com.moviearchive.ui.theme.MovieItemWidth
@@ -34,7 +34,7 @@ fun ShimmerMovieItem(
         ShimmerRectangle(
             isEnableShimmer = isEnableShimmer,
             width = MovieItemWidth,
-            height = ShimmerRectagleHeight,
+            height = ShimmerRectangleHeight,
             round = MovieItemRound,
             padding = SmallPadding
         )

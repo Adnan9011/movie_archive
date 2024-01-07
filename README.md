@@ -1,16 +1,23 @@
 # Movie Archive
 
-Welcome to Movie Archive, an open-source Android application built in Kotlin for managing and
-cataloguing your movie collection.
+Movie Archive is an open-source project developed by Adnan, leveraging modern technologies to create
+a robust and efficient movie catalog application.
+The project utilizes Jetpack Compose for building a reactive user interface, implements MVVM
+architectural pattern with Clean Architecture principles, organizes the codebase into multiple
+modules for improved scalability and maintainability, and incorporates various libraries such as
+Koin, Flow, Coroutine, Ktor, Kotlin Serialization, SQLDelight, and Version Catalog for seamless
+development and maintenance.
 
 https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-8788-73070a80b92f
 
 ## TAG
 
-- Implementation ROOM &
-  HILT : https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-hilt-room
-- Implementation ROOM &
-  KOIN : https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-koin-room
+- Implementation ROOM & HILT :
+  https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-hilt-room
+- Implementation ROOM & KOIN :
+  https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-koin-room
+- Implementation SQLDelight & KOIN :
+  https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-koin-sqldelight
 
 ## Features
 

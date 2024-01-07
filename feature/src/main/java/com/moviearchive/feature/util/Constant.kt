@@ -6,4 +6,4 @@ const val BANNER_IMAGE_URL =
     "https://images.wallpapersden.com/image/download/chaos-walking-2021_bGpnaWyUmZqaraWkpJRsamWtZmhoaQ.jpg"
 
 const val ShimmerMovieItemCount = 5
-val ShimmerRectagleHeight = 30.dp
+val ShimmerRectangleHeight = 30.dp
