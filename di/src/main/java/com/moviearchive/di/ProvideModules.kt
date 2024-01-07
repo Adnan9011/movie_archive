@@ -6,17 +6,6 @@ import com.moviearchive.feature.di.featureModule
 import org.koin.dsl.module
 
 object ProvideModules {
-    private fun dataModuleProvider() = module {
-        includes(dataModule)
-    }
-
-    private fun domainModuleProvider() = module {
-        includes(domainModule)
-    }
-
-    private fun featureModuleProvider() = module {
-        includes(featureModule)
-    }
 
     fun getModules() = module {
         includes(

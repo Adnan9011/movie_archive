@@ -1,23 +1,14 @@
 package com.moviearchive.data.source.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.moviearchive.data.source.db.model.CommentDatabaseModel
+import com.moviearchive.sqldelight.CommentTable
 import kotlinx.coroutines.flow.Flow
 
-@Dao
 interface CommentDao {
-    @Query("SELECT * FROM COMMENT_TABLE WHERE movieId = :movieId")
-    fun getAll(movieId: Int): Flow<List<CommentDatabaseModel>>
+    fun getAll(movieId: Int): Flow<List<CommentTable>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(comments: List<CommentDatabaseModel>)
+    suspend fun insertAll(comments: List<CommentTable>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(comment: CommentDatabaseModel)
+    suspend fun insert(comment: CommentTable)
 
-    @Query("DELETE FROM COMMENT_TABLE")
     suspend fun deleteAll()
 }

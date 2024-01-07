@@ -23,4 +23,4 @@ getAllLiked:
 SELECT * FROM MovieTable WHERE isLiked = 1;
 
 update:
-UPDATE OR ABORT MovieTable SET id = ?,title = ?,imageUrl = ?,numComments = ?,numLikes = ?,isLiked = ? WHERE id = ?;
+UPDATE OR ABORT MovieTable SET id = :id,title = :title,imageUrl = :imageUrl,numComments = :numComments,numLikes = :numLikes,isLiked = :isLiked WHERE id = :id;

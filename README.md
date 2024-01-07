@@ -49,7 +49,7 @@ Utilizes Kotlin Serialization for parsing JSON data.
 
 ### SQLDelight:
 
-Implements Room persistence library for local database management.
+Implements SQLDelight persistence library for local database management.
 
 ### Version Catalog:
 

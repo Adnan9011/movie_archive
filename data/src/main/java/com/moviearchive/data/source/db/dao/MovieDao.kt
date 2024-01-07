@@ -1,30 +1,18 @@
 package com.moviearchive.data.source.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
-import com.moviearchive.data.source.db.model.MovieDatabaseModel
+import com.moviearchive.sqldelight.MovieTable
 import kotlinx.coroutines.flow.Flow
 
-@Dao
 interface MovieDao {
-    @Query("SELECT * FROM MOVIE_TABLE")
-    fun getAll(): Flow<List<MovieDatabaseModel>>
+    fun getAll(): Flow<List<MovieTable>>
 
-    @Query("SELECT * FROM MOVIE_TABLE WHERE id=:movieId")
-    fun getMovie(movieId: Int): Flow<MovieDatabaseModel>
+    fun getMovie(movieId: Int): Flow<MovieTable>
 
-    @Query("SELECT * FROM MOVIE_TABLE WHERE isLiked = true")
-    fun getAllLiked(): Flow<List<MovieDatabaseModel>>
+    fun getAllLiked(): Flow<List<MovieTable>>
 
-    @Update
-    suspend fun update(movie: MovieDatabaseModel)
+    suspend fun update(movie: MovieTable)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll(movies: List<MovieDatabaseModel>)
+    suspend fun insertAll(movies: List<MovieTable>)
 
-    @Query("DELETE FROM MOVIE_TABLE")
     suspend fun deleteAll()
 }

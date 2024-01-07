@@ -1,7 +1,7 @@
 package com.moviearchive.data.model
 
 import com.moviearchive.data.source.api.model.MovieApiModel
-import com.moviearchive.data.source.db.model.MovieDatabaseModel
+import com.moviearchive.sqldelight.MovieTable
 
 data class MovieDataModel(
     val id: Int,
@@ -21,20 +21,23 @@ internal fun MovieApiModel.toData() = MovieDataModel(
     isLiked = isLiked
 )
 
-internal fun MovieDatabaseModel.toData() = MovieDataModel(
-    id = id,
+internal fun MovieTable.toData() = MovieDataModel(
+    id = id.toInt(),
     title = title,
     imageUrl = imageUrl,
-    numComments = numComments,
-    numLikes = numLikes,
-    isLiked = isLiked
+    numComments = numComments.toInt(),
+    numLikes = numLikes.toInt(),
+    isLiked = when {
+        (isLiked > 0) -> true
+        else -> false
+    }
 )
 
-internal fun MovieDataModel.toDatabase() = MovieDatabaseModel(
-    id = id,
+internal fun MovieDataModel.toDatabase() = MovieTable(
+    id = id.toLong(),
     title = title,
     imageUrl = imageUrl,
-    numComments = numComments,
-    numLikes = numLikes,
-    isLiked = isLiked
+    numComments = numComments.toLong(),
+    numLikes = numLikes.toLong(),
+    isLiked = if (isLiked) 1 else 0
 )

@@ -1,6 +1,8 @@
 package com.moviearchive.data.di
 
-import androidx.room.Room
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.moviearchive.DatabaseSource
 import com.moviearchive.data.repository.MovieRepository
 import com.moviearchive.data.repository.MovieRepositoryImpl
 import com.moviearchive.data.source.api.api.ApiService
@@ -8,7 +10,10 @@ import com.moviearchive.data.source.api.api.ApiServiceImpl
 import com.moviearchive.data.source.api.util.CustomHttpLogger
 import com.moviearchive.data.source.api.util.Rout
 import com.moviearchive.data.source.datastore.DataStoreSource
-import com.moviearchive.data.source.db.DatabaseSource
+import com.moviearchive.data.source.db.dao.CommentDao
+import com.moviearchive.data.source.db.dao.CommentDaoImpl
+import com.moviearchive.data.source.db.dao.MovieDao
+import com.moviearchive.data.source.db.dao.MovieDaoImpl
 import com.moviearchive.data.source.db.util.DATABASE_NAME
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -31,14 +36,13 @@ val dataModule = module {
     single { DataStoreSource() }
 
     single {
-        Room.databaseBuilder(
+        val driver: SqlDriver = AndroidSqliteDriver(
+            DatabaseSource.Schema,
             androidContext(),
-            DatabaseSource::class.java,
             DATABASE_NAME
-        ).build()
+        )
+        DatabaseSource(driver)
     }
-    single { get<DatabaseSource>().movieDao() }
-    single { get<DatabaseSource>().commentDao() }
 
     single {
         HttpClient(Android) {
@@ -57,6 +61,9 @@ val dataModule = module {
             }
         }
     }
+    single<MovieDao> { MovieDaoImpl(db = get()) }
+    single<CommentDao> { CommentDaoImpl(db = get()) }
+
     single { Dispatchers.Default }
     single<ApiService> { ApiServiceImpl(httpClient = get()) }
 }

@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.sqldelight)
 }
 
@@ -38,8 +37,8 @@ android {
 
 sqldelight {
     databases {
-        create("Database") {
-            packageName.set("com.moviearchive.data")
+        create("DatabaseSource") {
+            packageName.set("com.moviearchive")
         }
     }
 }
@@ -64,11 +63,6 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.negotiation)
     implementation(libs.ktor.logging)
-
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    annotationProcessor(libs.room.compiler)
-    ksp(libs.room.compiler)
 
     implementation(libs.sqldelight.android)
     implementation(libs.sqldelight.coroutines)

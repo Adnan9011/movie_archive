@@ -1,7 +1,7 @@
 package com.moviearchive.data.model
 
 import com.moviearchive.data.source.api.model.CommentApiModel
-import com.moviearchive.data.source.db.model.CommentDatabaseModel
+import com.moviearchive.sqldelight.CommentTable
 
 data class CommentDataModel(
     val id: Int,
@@ -15,8 +15,8 @@ internal fun CommentApiModel.toData() = CommentDataModel(
     movieId = movieId
 )
 
-internal fun CommentDatabaseModel.toData() = CommentDataModel(
-    id = id,
+internal fun CommentTable.toData() = CommentDataModel(
+    id = id.toInt(),
     title = title,
-    movieId = movieId
+    movieId = movieId.toInt()
 )

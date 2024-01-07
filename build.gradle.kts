@@ -6,7 +6,6 @@ plugins {
         alias(com.android.library) apply false
         alias(org.jetbrains.kotlin.android) apply false
         alias(kotlin.serialization) apply false
-        alias(ksp) apply false
         alias(sqldelight) apply false
     }
 }
