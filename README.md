@@ -12,12 +12,12 @@ development and maintenance.
 
 https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-8788-73070a80b92f
 
-## Give a Star! ⭐
+## Give a Star!
 
 If you find this project helpful for learning or starting your own solution, we would greatly
 appreciate it if you could give it a star. Thank you!
 
-## Features ✨
+## Features
 
 | Feature                       | Status           |
 |-------------------------------|------------------|
