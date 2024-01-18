@@ -1,5 +1,7 @@
 # Movie Archive
 
+### This repository has been developed in KMP (Kotlin Multiplatform). If you're interested, you can check it out at: https://github.com/Adnan9011/movie_archive_kmp
+
 Movie Archive is an open-source project developed by Adnan, leveraging modern technologies to create
 a robust and efficient movie catalog application.
 The project utilizes Jetpack Compose for building a reactive user interface, implements MVVM
@@ -10,6 +12,25 @@ development and maintenance.
 
 https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-8788-73070a80b92f
 
+## Give a Star! ⭐
+
+If you find this project helpful for learning or starting your own solution, we would greatly
+appreciate it if you could give it a star. Thank you!
+
+## Features ✨
+
+| Feature                       | Status           |
+|-------------------------------|------------------|
+| MultiModule                   | ✔️ Implemented   |
+| Implement Remote and Database | ✔️ Implemented   |
+| Home                          | ✔️ Implemented   |
+| Detail                        | ✔️ Implemented   |
+| Implement IMDB api            | ⚠️ Working on it |
+| Refactor Home                 | ⚠️ Working on it |
+| Refactor Detail               | ⚠️ Working on it |
+| Search Movie                  | ⚠️ Working on it |
+| Unit Test                     | ⚠️ Working on it |
+
 ## TAG
 
 - Implementation ROOM & HILT :
@@ -19,7 +40,7 @@ https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-878
 - Implementation SQLDelight & KOIN :
   https://github.com/Adnan9011/movie_archive/releases/tag/v0.1.0-with-koin-sqldelight
 
-## Features
+## Tech
 
 ### Compose UI:
 
