@@ -2,6 +2,8 @@
 
 ### This repository has been developed in KMP (Kotlin Multiplatform). If you're interested, you can check it out at: https://github.com/Adnan9011/movie_archive_kmp
 
+---
+
 Movie Archive is an open-source project developed by Adnan, leveraging modern technologies to create
 a robust and efficient movie catalog application.
 The project utilizes Jetpack Compose for building a reactive user interface, implements MVVM
@@ -16,20 +18,6 @@ https://github.com/Adnan9011/movie_archive/assets/7091803/0197315e-be55-4b39-878
 
 If you find this project helpful for learning or starting your own solution, we would greatly
 appreciate it if you could give it a star. Thank you!
-
-## Features
-
-| Feature                       | Status           |
-|-------------------------------|------------------|
-| MultiModule                   | ✔️ Implemented   |
-| Implement Remote and Database | ✔️ Implemented   |
-| Home                          | ✔️ Implemented   |
-| Detail                        | ✔️ Implemented   |
-| Implement IMDB api            | ⚠️ Working on it |
-| Refactor Home                 | ⚠️ Working on it |
-| Refactor Detail               | ⚠️ Working on it |
-| Search Movie                  | ⚠️ Working on it |
-| Unit Test                     | ⚠️ Working on it |
 
 ## TAG
 
